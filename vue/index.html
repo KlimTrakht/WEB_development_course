@@ -7,14 +7,128 @@
 </head>
 <body>
     <div id="app">
+
+        <button class="vue-btn" @click.prevent.stop="reveal(111)">
+            Reveal the Secret number
+        </button>
+        <ul>
+            <template
+                    v-for="(color, index) in colors"
+            >
+                <li
+                        @click="reveal(index)"
+                        v-if="color.primary"
+                        :key="index"
+                        >{{index}}: {{color.text}}
+                </li>
+            </template>
+        </ul>
+        <div v-html="htmlText"></div>
+        <div v-show="showText">Vshow Text is shown</div>
+        <div v-if="showText">Text is shown</div>
+        <div v-else-if="showTextElse">Else if text is shown</div>
+        <div v-else>Else text is shown</div>
         {{ text }}
+        <p>
+            Lower case text: {{ lowerText }}
+        </p>
+        <img
+                :src="imageSource"
+                :title="`${text} static text'`"
+        >
+        <img :[attributename]="imageSource" :title="`${text} static text'`">
+
+        <counter :add-num="10" />
+<!--        <counter />-->
+        <!--        <my-component-name />-->
+        <!--        <MyComponentName />-->
     </div>
 <script>
+
+  Vue.component('my-component-name', {
+    /* ... */
+  })
+
+  Vue.component('MyComponentName', {
+    /* ... */
+  })
+
+  var counter = Vue.component('counter', {
+    template: `
+    <div>
+    <div>Count:{{ count }}</div>
+    <button @click="increment">Increment by {{ addNum }}</button>
+
+</div>
+    `,
+    // props: ['addNum'],
+    props: {
+      addNum: {
+        type: Number,
+        default: 3
+      }
+    },
+    data(){
+      return {
+        count: 0
+      }
+    },
+    methods: {
+      increment(){
+        this.count+= this.addNum
+      }
+    }
+
+  })
+
+
+
     var app = new Vue({
       el: '#app',
       data: {
-        text: 'Hello World'
+        text: 'Hello World',
+        imageSource: "http://via.placeholder.com/350x250",
+        attributename: 'src',
+        showText: false,
+        showTextElse: false,
+        htmlText: '<h1>H1 title</h1>',
+        // colors: ['red','green','blue','yellow','orange']
+        colors: [
+          {
+            text: 'red',
+            primary: true
+          },
+          {
+            text: 'green',
+            primary: false
+          },
+          {
+            text: 'blue',
+            primary: true
+          },
+          {
+            text: 'yellow',
+            primary: true
+          },
+          {
+            text: 'orange',
+            primary: false
+          }
+        ],
+        secretNumber: Math.floor(Math.random() * 100) + 1
+      },
+      methods: {
+        reveal(arg){
+          alert(`Here's the secret number: ${this.secretNumber}, arg=${arg}`)
+          this.text = "New text"
+        }
+      },
+      computed: {
+        lowerText(){
+          return this.text.toLowerCase()
+        }
       }
+
     })
 </script>
 </body>
