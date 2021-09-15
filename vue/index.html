@@ -8,6 +8,10 @@
 <body>
     <div id="app">
 
+        {{ lowerCaseString | capitalize }}
+
+        <br>
+
         <button class="vue-btn" @click.prevent.stop="reveal(111)">
             Reveal the Secret number
         </button>
@@ -19,6 +23,15 @@
                         @click="reveal(index)"
                         v-if="color.primary"
                         :key="index"
+                        class="list-item"
+                        :class="{
+                            active: isActive,
+                            primary: color.primary
+                        }"
+                        :style="{
+                            color: color.primary ? 'red' : 'blue',
+                            backgroundColor: 'green'
+                        }"
                         >{{index}}: {{color.text}}
                 </li>
             </template>
@@ -82,8 +95,16 @@
   })
 
 
+  // Vue.filter('capitalize', function (value) {
+  //   if (!value) return ''
+  //   value = value.toString()
+  //   return value.charAt(0).toUpperCase() + value.slice(1)
+  // })
 
-    var app = new Vue({
+
+
+
+  var app = new Vue({
       el: '#app',
       data: {
         text: 'Hello World',
@@ -115,7 +136,9 @@
             primary: false
           }
         ],
-        secretNumber: Math.floor(Math.random() * 100) + 1
+        secretNumber: Math.floor(Math.random() * 100) + 1,
+        isActive: true,
+        lowerCaseString: 'to capitalize'
       },
       methods: {
         reveal(arg){
@@ -126,6 +149,22 @@
       computed: {
         lowerText(){
           return this.text.toLowerCase()
+        }
+      },
+      created(){
+        console.log('created')
+      },
+      mounted(){
+        console.log('mounted')
+      },
+      updated(){
+        console.log('updated')
+      },
+      filters: {
+        capitalize: function(value){
+          if(!value) return ''
+          value = value.toString()
+          return value.charAt(0).toUpperCase() + value.slice(1)
         }
       }
 
