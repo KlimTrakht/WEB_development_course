@@ -1,24 +1,22 @@
 <template>
   <div id="app">
     <h3>{{ title }}</h3>
-    <div class="col-md-12">
-      <Character v-for="id in initials_ids" :id="id" :key="id" />
-    </div>
+    <h4>
+      <router-link to="/about" class="link">About us</router-link>
+    </h4>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Character from "./components/Character.vue";
+// import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: "App",
-  components: {
-    Character
-  },
+  components: {},
   data() {
     return {
-      title: "Team generator",
-      initials_ids: [1, 13, 14]
+      title: "Starwars router"
     };
   }
 };
