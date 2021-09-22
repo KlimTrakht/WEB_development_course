@@ -1,23 +1,29 @@
 <template>
   <div id="app">
     <h3>{{ title }}</h3>
+    <button @click="showAlert">Hello</button>
     <h4>
-      <router-link to="/about" class="link">About us</router-link>
+      <router-link to="/about" class="link">About us</router-link> |
+      <router-link to="/data/people" class="link">People</router-link> |
+      <router-link to="/data/planets" class="link">Planets</router-link>
     </h4>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
+import localMixin from "@/mixins/localMixin";
 
 export default {
   name: "App",
-  components: {},
+  mixins: [localMixin],
   data() {
     return {
       title: "Starwars router"
     };
+  },
+  mounted() {
+    console.log("component output");
   }
 };
 </script>
