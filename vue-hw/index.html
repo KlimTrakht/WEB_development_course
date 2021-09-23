@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue App</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{lowerCaseString | capitalize}}
+    <br>
+    <button class="vue-btn" @click="reveal(13)">
+      Reveal the Secret number
+    </button>
+    <ul>
+      <template 
+        v-for="(color, index) in colors">
+          <li
+            @click="reveal(index)"
+            v-if='color.primary'
+            :key="index"
+            class="list-item"
+            :class="{
+              active:isActive,
+              primary:color.primary
+            }"
+            :style="{
+              color: 'red',
+              backgroundColor: 'green'
+            }"
+            >{{index}}: {{color.text}}
+          </li>
+      </template>
+    </ul>
+    <div v-html="htmlText"></div>
+    <div>{{htmlText}}</div>
+    <div v-show="showText">Vshow Text is shown</div>
+    <div v-if="showText">Text is shown</div>
+    <div v-else-if="showTextElse">Else if text is shown</div>
+    <div v-else>Else text is shown</div>
+    {{ text }} <br>
+    <p>
+      Lover case text: {{lowerText}}
+    </p>
+    <img 
+      :src="imageSource" 
+      alt=""
+      :title="text+' static text'">
+    <img 
+      :[atributename]="imageSource" 
+      alt="" 
+      :title="text+' static text'">
+      <!-- <counter :add-num="10" /> -->
+      <counter />
+  </div>
+
+
+  <script>
+    var counter = Vue.component('counter', {
+      template: `
+        <div>
+          <div>Count: {{count}}</div>
+          <button @click="increment">Increment by {{addNum}}</button>
+        </div>
+      `,
+      // props: ['addNum'],
+      props: {
+        addNum: {
+          type: Number,
+          default: 3
+        }
+      },
+      data() {
+        return{
+          count: 0
+        }
+      },
+      methods: {
+        increment() {
+          this.count += this.addNum
+          // this.addNum = 100
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        text: 'Hello World',
+        imageSource: "http://via.placeholder.com/350x250",
+        atributename: 'src',
+        showText: false,
+        showTextElse: false,
+        htmlText: '<h1>H1 title</h1>',
+        // colors: ['red', 'green', 'blue', 'yellow', 'orange']
+        colors: [
+          {
+            text: 'red',
+            primary: true
+          },
+          {
+            text: 'green',
+            primary: false
+          },
+          {
+            text: 'blue',
+            primary: true
+          }
+        ],
+        secretNumber: Math.floor(Math.random() * 100) + 1,
+        isActive: true,
+        lowerCaseString: 'to capitalize'
+      },
+      methods: {
+         reveal(arg) {
+           alert(`Here's the secret number ${this.secretNumber}, arg=${arg}`)
+           this.text = "New text"
+         }
+      },
+      computed: {
+        lowerText(){
+          return this.text.toLowerCase()
+        }
+      },
+      components: {
+        counter
+      },
+      created(){
+        console.log('created')
+      },
+      mounted(){
+        console.log('mounted')
+      },
+      updated(){
+        console.log('updated')
+      },
+      filters: {
+        capitalize: function(value){
+          if(!value) return ''
+          value = value.toString()
+          return value.charAt(0).toUpperCase() + value.slice(1)
+        }
+      }
+    })
+  </script> 
+</body>
+
+</html>
