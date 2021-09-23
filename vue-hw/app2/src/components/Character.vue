@@ -15,25 +15,25 @@ export default {
   name: "Character",
   data() {
     return {
-      character: {}
+      character: {},
     };
   },
   props: {
-    id: Number
+    id: Number,
   },
   methods: {
     fetchCharacter(id) {
       fetch(`https://swapi.dev/api/people/${id}`, { method: "GET" })
-        .then(response => response.json())
-        .then(json => (this.character = json));
+        .then((response) => response.json())
+        .then((json) => (this.character = json));
     },
     switchCharacter() {
       const randomId = Math.floor(Math.random() * 82) + 1;
       this.fetchCharacter(randomId);
-    }
+    },
   },
   created() {
     this.fetchCharacter(this.id);
-  }
+  },
 };
 </script>
