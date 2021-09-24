@@ -19,12 +19,12 @@ export default {
   mixins: [localMixin],
   data() {
     return {
-      title: "Starwars router"
+      title: "Starwars router",
     };
   },
   mounted() {
     console.log("component output");
-  }
+  },
 };
 </script>
 
