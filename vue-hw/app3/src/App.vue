@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <h3>{{ title }}</h3>
+    <h4>
+      <router-link to="/about" class="link">About Us</router-link>
+    </h4>
+    <router-view></router-view>
   </div>
 </template>
 
