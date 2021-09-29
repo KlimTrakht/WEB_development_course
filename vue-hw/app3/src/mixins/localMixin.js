@@ -10,6 +10,6 @@ export default {
     },
   },
   mounted() {
-    // console.log(this.$route.path);
+    console.log("local mixin output");
   },
 };

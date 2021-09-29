@@ -4,6 +4,7 @@
       <div class="card-blok">
         <h4 class="card-title">{{ item.name }}</h4>
         <button @click="showAlert">Hello</button>
+        <button @click="emitMethod">Emit event</button>
         <div v-for="(value, key) in item" :key="key">
           <div v-if="key !== 'name'">
             <strong>{{ key }}:</strong> {{ value }}
@@ -15,6 +16,7 @@
 </template>
 <script>
 import localMixin from "@/mixins/localMixin";
+import { EventBus } from "../main.js";
 export default {
   name: "Item",
   mixins: [localMixin],
@@ -22,6 +24,7 @@ export default {
   data() {
     return {
       item: {},
+      isShowing: "some string",
     };
   },
   methods: {
@@ -33,9 +36,20 @@ export default {
         .then((response) => response.json())
         .then((json) => (this.item = json));
     },
+    emitMethod() {
+      EventBus.$emit("customevent", "eventdata");
+    },
   },
   created() {
     this.item = this.passedItem;
+  },
+  mounted() {
+    EventBus.$on("customevent", (data) => {
+      console.log("custom event from Item", data);
+    });
+  },
+  beforeDestroy() {
+    EventBus.$off("customevent");
   },
 };
 </script>

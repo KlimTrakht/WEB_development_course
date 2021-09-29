@@ -4,9 +4,9 @@
     <button @click="showAlert">Hello</button>
     <h4>
       <router-link to="/about" class="link">About Us</router-link> |
-      <router-link to="/data/people?queryparam=abc" class="link"
-        >People</router-link
-      >
+      <router-link to="/data/people?queryparam=abc" class="link">
+        People
+      </router-link>
       |
       <router-link to="/data/planets" class="link">Planets</router-link>
     </h4>
