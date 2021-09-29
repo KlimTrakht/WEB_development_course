@@ -1,12 +1,16 @@
 <template>
-  <div>
+  <div class="col-md-12">
     {{ type }} <br />
-    {{ items }}
+    <Item v-for="item in items" :passed-item="item" :key="item.name" />
   </div>
 </template>
 <script>
+import Item from "@/components/Item.vue";
 export default {
   name: "Data",
+  components: {
+    Item,
+  },
   data() {
     return {
       type: this.$route.params.type,
@@ -22,6 +26,7 @@ export default {
   methods: {
     fetchItems() {
       let initial_ids = [1, 13, 14];
+      this.items = [];
       for (const i in initial_ids) {
         const id = initial_ids[i];
         fetch(`https://swapi.dev/api/${this.type}/${id}`, { method: "GET" })
@@ -31,7 +36,7 @@ export default {
     },
   },
   created() {
-    // console.log();
+    this.fetchItems();
   },
 };
 </script>

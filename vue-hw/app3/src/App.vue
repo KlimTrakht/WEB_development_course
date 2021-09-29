@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h3>{{ title }}</h3>
+    <button @click="showAlert">Hello</button>
     <h4>
       <router-link to="/about" class="link">About Us</router-link> |
       <router-link to="/data/people?queryparam=abc" class="link"
@@ -14,11 +15,10 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-
+import localMixin from "@/mixins/localMixin";
 export default {
   name: "App",
-  components: {},
+  mixins: [localMixin],
   data() {
     return {
       title: "Starwars router",
