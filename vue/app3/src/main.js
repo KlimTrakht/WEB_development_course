@@ -10,23 +10,23 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: "/about", component: About },
-  { path: "/data/:type", component: Data }
+  { path: "/data/:type", component: Data },
 ];
 
 const router = new VueRouter({
   routes,
-  mode: "history"
+  mode: "history",
 });
 
 Vue.mixin({
   mounted() {
     // console.log("hello from global mixin");
-  }
+  },
 });
 
 export const EventBus = new Vue();
 
 new Vue({
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
