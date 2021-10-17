@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getDatabase, ref, child } from "firebase/database";
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -12,3 +14,8 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+export const auth = getAuth(firebaseApp);
+
+const database = getDatabase(firebaseApp);
+export const reference = ref(database);
+export const eventRef = child(reference, "events");
