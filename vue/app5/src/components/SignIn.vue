@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
   name: "SignIn",
@@ -37,18 +37,18 @@ export default {
       email: "",
       password: "",
       error: {
-        message: ""
-      }
+        message: "",
+      },
     };
   },
   methods: {
     signIn() {
       signInWithEmailAndPassword(auth, this.email, this.password).catch(
-        error => {
+        (error) => {
           this.error = error;
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>

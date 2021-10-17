@@ -35,19 +35,19 @@ export default {
       email: "",
       password: "",
       error: {
-        message: ""
-      }
+        message: "",
+      },
     };
   },
   methods: {
     signUp() {
       createUserWithEmailAndPassword(auth, this.email, this.password).catch(
-        error => {
+        (error) => {
           this.error = error;
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
