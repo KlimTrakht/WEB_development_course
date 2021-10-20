@@ -14,4 +14,11 @@ export const mutations = {
   }
 }
 
-export const actions = {}
+export const actions = {
+  nuxtServerInit({ commit }, { req }) {
+    console.log('nuxtServerInit')
+    // if (req.session.user) {
+    //   commit('user', req.session.user)
+    // }
+  }
+}

@@ -6,6 +6,10 @@
       <nuxt-link to="/">Home</nuxt-link>
 
       {{ name }}
+
+      <p>
+        <button @click="$myInjectedFunction('hello')">Test plugin</button>
+      </p>
     </v-col>
   </v-row>
 </template>
@@ -14,9 +18,11 @@
 export default {
   name: 'BlogPostPage',
   layout: 'nobar',
+  middleware: 'stats',
   validate({ params }) {
     return /^\d+$/.test(params.id)
   },
+  scrollToTop: true,
   // asyncData({ params, app, error }) {
   //   return app.$axios
   //     .get(`https://swapi.dev/api/people/${params.id}`)
@@ -37,6 +43,18 @@ export default {
     return {
       name: 'Skywalker'
     }
+  },
+  head: {
+    meta: [
+      { charset: 'koi8r' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    ],
+    link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Roboto'
+      }
+    ]
   }
 }
 </script>
