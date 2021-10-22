@@ -1,42 +1,100 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <h1>{{ message }}</h1>
+    <h2 @click="incrementCounter">Counter: {{ counter }}</h2>
+    <h2 @click="incrementFirstCounter">FirstCounter{{ counterFirst }}</h2>
+    <h3>twiceTheCounter: {{ twiceTheCounter }}</h3>
+    <input type="text" ref="textInput" @change="getTextInputValue" />
   </div>
 </template>
 
 <script>
+import { onMounted, ref, getCurrentInstance } from "vue";
+// import {useRouter, useRoute} from 'vue-router';
+// import {useStore, createNamespacedHelpers} from 'vuex';
+import useCounter from "@/composables/useCounter";
+
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
     msg: String
+  },
+  // data() {
+  //   return {
+  //     counter: 0
+  //   };
+  // },
+  // methods: {
+  // incrementCounter() {
+  //   console.log(this.$refs.textInput);
+  //   this.counter++;
+  // }
+  // changeCounter() {
+  //   this.incrementCounter();
+  // }
+  // },
+  setup(props, context) {
+    // onMounted
+    onMounted(() => {
+      console.log("onMounted");
+      // context.emit();
+    });
+
+    // Routing
+    // const router = useRouter()
+    // const route = useRoute()
+    // router.push('/')
+
+    // Store
+    // const store = useStore();
+    // store.dispatch("getPosts");
+    // const { mapActions, mapState } = createNamespacedHelpers("moduleName");
+    // const actions = mapActions(["actionA", "actionB"]);
+    // const { dataList } = mapState(['dataList'])
+
+    // currentInstance
+    const currentInstance = getCurrentInstance();
+    console.log("parentProp:", currentInstance.parent.data.parentProp);
+
+    // Атрибуты (нереактивный объект)
+    console.log(context.attrs);
+
+    // Слоты (нереактивный объект)
+    console.log(context.slots);
+
+    // Генерация событий (метод)
+    console.log(context.emit);
+
+    const message = ref(props.msg);
+    message.value += "Additional text";
+
+    const {
+      counter,
+      counters,
+      incrementCounter,
+      incrementFirstCounter,
+      counterFirst,
+      twiceTheCounter
+    } = useCounter(3);
+
+    const textInput = ref(null);
+    function getTextInputValue() {
+      console.log("textInputValue", textInput.value.value);
+    }
+
+    return {
+      counter,
+      counters,
+      incrementCounter,
+      incrementFirstCounter,
+      counterFirst,
+      twiceTheCounter,
+      message,
+      textInput,
+      getTextInputValue
+    };
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
