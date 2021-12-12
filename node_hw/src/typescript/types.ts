@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 // Base types
 
 // тип boolean
@@ -57,7 +58,10 @@ function throwError(message: string): never {
 }
 // сейчас компилятор явно видит в этой функции буде выброшена ошибка он принимает тип данных never
 function infinity(): never {
-  while (true) {}
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    console.log()
+  }
 }
 // эта функция никогда не остановиться
 
@@ -68,7 +72,7 @@ type Login = string
 // создали тип Login (именнованный тип) со значением string, теперь его можно указывать при создании, допустим переменных
 const login: Login = 'admin'
 
-// так же можно указывать потенциально различные типы данных дляодной и той же переменной, допустим, есть переменная ID в которой может храниться или string, или number
+// так же можно указывать потенциально различные типы данных для одной и той же переменной, допустим, есть переменная ID в которой может храниться или string, или number
 type ID = string | number
 const id1: ID = 1234
 const id2: ID = '1234'
