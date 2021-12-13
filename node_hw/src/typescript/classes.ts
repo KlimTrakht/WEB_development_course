@@ -66,7 +66,7 @@ class Animal {
 
 // теперь создадим какой нибудь более точный класс который будет наследоваться от Animal
 class Cat extends Animal {
-  // добавим метод setVoice c модификатором public, который будет принимать voice nbgf ыекштп и ничего небудет возвращать
+  // добавим метод setVoice c модификатором public, который будет принимать voice типа string и ничего небудет возвращать
   // он будет обращаться к this.voice и задавать ему значение voice
   public setVoice(voice: string): void {
     this.voice = voice
